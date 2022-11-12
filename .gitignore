@@ -1,5 +1,8 @@
 # Package Files #
 *.jar
+/target/
+*.class
+.mtj.tmp/
 
 # see JDK-8214300
 .attach_pid*
@@ -41,3 +44,4 @@ test.conf
 log4j.properties
 spark-warehouse
 *.flattened-pom.xml
+*.iml

@@ -21,7 +21,7 @@
     <parent>
         <artifactId>seatunnel-examples</artifactId>
         <groupId>org.apache.seatunnel</groupId>
-        <version>2.1.4-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -40,24 +40,24 @@
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-core-flink</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!--   seatunnel-connector   -->
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-connector-flink-fake</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-connector-flink-console</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
        <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-connector-flink-assert</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
         <!--   seatunnel connectors   -->
 

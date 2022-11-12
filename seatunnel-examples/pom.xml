@@ -21,7 +21,7 @@
     <parent>
         <artifactId>seatunnel</artifactId>
         <groupId>org.apache.seatunnel</groupId>
-        <version>2.1.4-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,9 +29,24 @@
     <packaging>pom</packaging>
     <modules>
         <module>seatunnel-flink-examples</module>
-        <module>seatunnel-spark-examples</module>
         <module>seatunnel-flink-sql-examples</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>spark</id>
+            <modules>
+                <module>seatunnel-spark-examples</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>spark32</id>
+            <modules>
+                <module>seatunnel-spark3-examples</module>
+            </modules>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>

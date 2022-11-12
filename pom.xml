@@ -25,7 +25,7 @@
     <groupId>org.apache.seatunnel</groupId>
     <artifactId>seatunnel</artifactId>
     <packaging>pom</packaging>
-    <version>2.1.4-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <name>SeaTunnel</name>
 
@@ -76,6 +76,7 @@
             <module>seatunnel-config</module>
         -->
         <module>seatunnel-common</module>
+        <module>seatunnel-config</module>
         <module>seatunnel-apis</module>
         <module>seatunnel-api</module>
         <module>seatunnel-core</module>
@@ -88,22 +89,22 @@
     </modules>
 
     <properties>
-        <revision>2.1.3-SNAPSHOT</revision>
-        <seatunnel.config.shade.version>2.1.1</seatunnel.config.shade.version>
+        <revision>2.1.3-spark3</revision>
+        <seatunnel.config.shade.version>2.1.3-spark3</seatunnel.config.shade.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <scala.version>2.11.12</scala.version>
         <scala.binary.version>2.11</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spark.version>2.4.0</spark.version>
+        <spark.version>2.4.7</spark.version>
         <spark.binary.version>2.4</spark.binary.version>
         <neo4j.connector.spark.version>4.1.0</neo4j.connector.spark.version>
         <iceberg.version>0.13.1</iceberg.version>
         <flink.version>1.13.6</flink.version>
         <hudi.version>0.10.0</hudi.version>
-        <hadoop.binary.version>2.7</hadoop.binary.version>
-        <hadoop.version>2.7.5</hadoop.version>
+        <hadoop.binary.version>3.2</hadoop.binary.version>
+        <hadoop.version>3.2.1</hadoop.version>
         <jackson.version>2.12.6</jackson.version>
         <lombok.version>1.18.0</lombok.version>
         <mysql.version>8.0.16</mysql.version>
@@ -129,11 +130,11 @@
         <flink-shaded-hadoop-2.version>2.7.5-7.0</flink-shaded-hadoop-2.version>
         <parquet-avro.version>1.10.0</parquet-avro.version>
         <elasticsearch-spark.version>6.8.3</elasticsearch-spark.version>
-        <clickhouse-jdbc.version>0.2</clickhouse-jdbc.version>
+        <clickhouse-jdbc.version>0.2.4</clickhouse-jdbc.version>
         <hbase-spark.version>1.0.0</hbase-spark.version>
         <kudu-spark.version>1.7.0</kudu-spark.version>
-        <mongo-spark.version>2.2.0</mongo-spark.version>
-        <spark-redis.version>2.6.0</spark-redis.version>
+        <mongo-spark.version>3.0.1</mongo-spark.version>
+        <spark-redis.version>3.1.0</spark-redis.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
@@ -352,12 +353,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch-spark-20_${scala.binary.version}</artifactId>
-                <version>${elasticsearch-spark.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-connector-elasticsearch${elasticsearch}_${scala.binary.version}</artifactId>
                 <version>${flink.version}</version>
@@ -416,7 +411,7 @@
                 <artifactId>spark-streaming-kafka-0-10_${scala.binary.version}</artifactId>
                 <version>${spark.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -580,7 +575,7 @@
             <dependency>
                 <groupId>org.neo4j</groupId>
                 <artifactId>neo4j-connector-apache-spark_${scala.binary.version}</artifactId>
-                <version>${neo4j.connector.spark.version}_for_spark_${spark.binary.version}</version>
+                <version>${neo4j.connector.spark.version}_for_spark_3</version>
             </dependency>
 
             <dependency>
@@ -604,6 +599,18 @@
             <dependency>
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-library</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-reflect</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-compiler</artifactId>
                 <version>${scala.version}</version>
             </dependency>
 
@@ -657,6 +664,27 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>spark32</id>
+            <properties>
+                <scala.version>2.12.15</scala.version>
+                <scala.binary.version>2.12</scala.binary.version>
+                <spark.version>3.2.0</spark.version>
+                <spark.binary.version>3.2</spark.binary.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>spark31</id>
+            <properties>
+                <scala.version>2.12.10</scala.version>
+                <scala.binary.version>2.12</scala.binary.version>
+                <spark.version>3.1.2</spark.version>
+                <spark.binary.version>3.1</spark.binary.version>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
 
@@ -870,7 +898,7 @@
                         </execution>
                     </executions>
                 </plugin>
-                
+
                 <!-- checkstyle (End) -->
 
                 <plugin>
@@ -1016,7 +1044,7 @@
                 <groupId>org.scalastyle</groupId>
                 <artifactId>scalastyle-maven-plugin</artifactId>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>

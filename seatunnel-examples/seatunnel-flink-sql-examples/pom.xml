@@ -21,7 +21,7 @@
     <parent>
         <artifactId>seatunnel-examples</artifactId>
         <groupId>org.apache.seatunnel</groupId>
-        <version>2.1.4-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-core-flink-sql</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
         <!--flink-->
         <dependency>
@@ -60,7 +60,7 @@
             <version>${flink.version}</version>
             <scope>${flink.scope}</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_${scala.binary.version}</artifactId>

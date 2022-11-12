@@ -37,11 +37,11 @@ class NullRate extends BaseSparkTransform {
       fl._1 -> env.getSparkSession.sparkContext.longAccumulator(fl._1)
     })
 
-    df.foreachPartition(iter => {
+    df.foreachPartition((iter: Iterator[Row]) => {
       while (iter.hasNext) {
         allCount.add(1L)
         val row = iter.next()
-        fieldsAndRates.map(fl => fl._1).foreach(field => {
+        fieldsAndRates.keys.foreach(field => {
           val accumulator = fieldsAndRatesAccumulator.get(field).get
           if (row.get(row.fieldIndex(field)) == null) {
             accumulator.add(1L)

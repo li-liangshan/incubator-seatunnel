@@ -54,4 +54,8 @@ public class CheckResult {
         return new CheckResult(false, msg);
     }
 
+    public boolean isSuccess() {
+        return success;
+    }
+
 }

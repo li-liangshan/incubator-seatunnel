@@ -21,7 +21,7 @@
     <parent>
         <artifactId>seatunnel-examples</artifactId>
         <groupId>org.apache.seatunnel</groupId>
-        <version>2.1.4-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -33,19 +33,19 @@
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-core-spark</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
 
         <!--   seatunnel connectors   -->
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-connector-spark-fake</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-connector-spark-console</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
         </dependency>
         <!--   seatunnel connectors   -->
 
