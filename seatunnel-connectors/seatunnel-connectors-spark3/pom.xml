@@ -33,7 +33,7 @@
         <module>seatunnel-connector-spark3-file</module>
         <module>seatunnel-connector-spark3-kafka</module>
         <module>seatunnel-connector-spark3-socket</module>
-<!--        <module>seatunnel-connector-spark3-redis</module>-->
+        <module>seatunnel-connector-spark3-redis</module>
         <module>seatunnel-connector-spark3-phoenix</module>
         <module>seatunnel-connector-spark3-jdbc</module>
         <module>seatunnel-connector-spark3-hive</module>
@@ -48,5 +48,6 @@
         <module>seatunnel-connector-spark3-feishu</module>
         <module>seatunnel-connector-spark3-http</module>
         <module>seatunnel-connector-spark3-webhook</module>
+        <module>seatunnel-connectors-spark3-mysql</module>
     </modules>
 </project>

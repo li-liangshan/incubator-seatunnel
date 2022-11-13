@@ -19,8 +19,8 @@ package org.apache.seatunnel.spark.webhook.source
 
 import org.apache.spark.sql.{DataFrame, Encoder, Encoders, SQLContext}
 import org.apache.spark.sql.execution.streaming.MemoryStream
-import org.spark_project.jetty.server.Server
-import org.spark_project.jetty.servlet.{ServletContextHandler, ServletHolder}
+import org.sparkproject.jetty.server.Server
+import org.sparkproject.jetty.servlet.{ServletContextHandler, ServletHolder}
 
 class JettyServer(port: Int = 9999, baseUrl: String = "/") {
 

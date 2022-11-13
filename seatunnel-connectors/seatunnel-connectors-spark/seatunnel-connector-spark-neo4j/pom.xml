@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-api-spark</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -50,10 +50,10 @@
             <artifactId>spark-streaming_${scala.binary.version}</artifactId>
         </dependency>
 
-        <!-- list of neo4j dependencies -->
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-connector-apache-spark_${scala.binary.version}</artifactId>
+            <version>${neo4j.connector.spark.version}_for_spark_${spark.binary.version}</version>
         </dependency>
     </dependencies>
 </project>

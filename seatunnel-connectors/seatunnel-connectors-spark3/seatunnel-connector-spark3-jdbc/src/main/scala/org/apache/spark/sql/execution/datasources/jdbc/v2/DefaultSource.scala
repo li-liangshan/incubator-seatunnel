@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.spark.sql.execution.datasources.jdbc2
+package org.apache.spark.sql.execution.datasources.jdbc.v2
 
-import org.apache.spark.sql.execution.datasources.jdbc2.JdbcUtils._
+import JdbcUtils._
 import org.apache.spark.sql.sources.{BaseRelation, CreatableRelationProvider, DataSourceRegister, RelationProvider}
 import org.apache.spark.sql.{AnalysisException, DataFrame, SQLContext, SaveMode}
 
@@ -26,9 +26,8 @@ class DefaultSource extends CreatableRelationProvider with RelationProvider
 
   override def shortName(): String = "jdbc2"
 
-  override def createRelation(
-                               sqlContext: SQLContext,
-                               parameters: Map[String, String]): BaseRelation = {
+  override def createRelation(sqlContext: SQLContext,
+                              parameters: Map[String, String]): BaseRelation = {
 
     val jdbcOptions = new JdbcOptionsInWrite(parameters)
 
@@ -40,11 +39,10 @@ class DefaultSource extends CreatableRelationProvider with RelationProvider
     JDBCRelation(parts, jdbcOptions)(sqlContext.sparkSession)
   }
 
-  override def createRelation(
-                               sqlContext: SQLContext,
-                               mode: SaveMode,
-                               parameters: Map[String, String],
-                               df: DataFrame): BaseRelation = {
+  override def createRelation(sqlContext: SQLContext,
+                              mode: SaveMode,
+                              parameters: Map[String, String],
+                              df: DataFrame): BaseRelation = {
 
     val options = new JdbcOptionsInWrite(parameters)
     val isCaseSensitive = sqlContext.conf.caseSensitiveAnalysis

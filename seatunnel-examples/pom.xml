@@ -40,6 +40,12 @@
             </modules>
         </profile>
         <profile>
+            <id>spark31</id>
+            <modules>
+                <module>seatunnel-spark3-examples</module>
+            </modules>
+        </profile>
+        <profile>
             <id>spark32</id>
             <modules>
                 <module>seatunnel-spark3-examples</module>

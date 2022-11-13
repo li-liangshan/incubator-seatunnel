@@ -17,21 +17,20 @@
 package org.apache.seatunnel.spark.jdbc.sink
 
 import scala.collection.JavaConversions._
-
 import org.apache.seatunnel.common.config.CheckConfigUtil.checkAllExists
 import org.apache.seatunnel.common.config.CheckResult
 import org.apache.seatunnel.shade.com.typesafe.config.ConfigFactory
 import org.apache.seatunnel.spark.SparkEnvironment
 import org.apache.seatunnel.spark.batch.SparkBatchSink
+import org.apache.spark.sql.execution.datasources.jdbc.v2.JDBCSaveMode
 import org.apache.spark.sql.{Dataset, Row}
-import org.apache.spark.sql.execution.datasources.jdbc2.JDBCSaveMode
 
 class Jdbc extends SparkBatchSink {
 
   override def output(data: Dataset[Row], env: SparkEnvironment): Unit = {
     val saveMode = config.getString("saveMode")
     if ("update".equals(saveMode)) {
-      data.write.format("org.apache.spark.sql.execution.datasources.jdbc2").options(
+      data.write.format("org.apache.spark.sql.execution.datasources.jdbc.v2").options(
         Map(
           "saveMode" -> JDBCSaveMode.Update.toString,
           "driver" -> config.getString("driver"),

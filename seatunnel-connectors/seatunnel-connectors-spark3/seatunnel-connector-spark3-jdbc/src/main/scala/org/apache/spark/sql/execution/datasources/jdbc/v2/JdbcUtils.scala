@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.spark.sql.execution.datasources.jdbc2
+package org.apache.spark.sql.execution.datasources.jdbc.v2
 
 import org.apache.commons.lang3.StringUtils
 import org.apache.spark.TaskContext
@@ -22,12 +22,12 @@ import org.apache.spark.executor.InputMetrics
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.catalyst.InternalRow
 import org.apache.spark.sql.catalyst.analysis.Resolver
-import org.apache.spark.sql.catalyst.encoders.RowEncoder
+import org.apache.spark.sql.catalyst.encoders.{ExpressionEncoder, RowEncoder}
 import org.apache.spark.sql.catalyst.expressions.SpecificInternalRow
 import org.apache.spark.sql.catalyst.parser.CatalystSqlParser
 import org.apache.spark.sql.catalyst.util.{CaseInsensitiveMap, DateTimeUtils, GenericArrayData}
 import org.apache.spark.sql.execution.datasources.jdbc.{DriverRegistry, DriverWrapper}
-import org.apache.spark.sql.execution.datasources.jdbc2.JDBCSaveMode.JDBCSaveMode
+import JDBCSaveMode.JDBCSaveMode
 import org.apache.spark.sql.jdbc.{JdbcDialect, JdbcDialects, JdbcType}
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.util.SchemaUtils
@@ -45,6 +45,8 @@ import scala.util.control.NonFatal
  * Util functions for JDBC tables.
  */
 object JdbcUtils extends Logging {
+
+  val HIVE_TYPE_STRING = "HIVE_TYPE_STRING"
 
   /**
    * Returns a factory for creating connections to the given JDBC URL.
@@ -374,9 +376,10 @@ object JdbcUtils extends Logging {
   def resultSetToRows(resultSet: ResultSet, schema: StructType): Iterator[Row] = {
     val inputMetrics =
       Option(TaskContext.get()).map(_.taskMetrics().inputMetrics).getOrElse(new InputMetrics)
-    val encoder = RowEncoder(schema).resolveAndBind()
+    val encoder: ExpressionEncoder[Row] = RowEncoder(schema).resolveAndBind()
     val internalRows = resultSetToSparkInternalRows(resultSet, schema, inputMetrics)
-    internalRows.map(encoder.fromRow)
+    val deserializer = encoder.createDeserializer()
+    internalRows.map(internalRow => deserializer.apply(internalRow))
   }
 
   private[spark] def resultSetToSparkInternalRows(

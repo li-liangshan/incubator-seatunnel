@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.spark.sql.execution.datasources.jdbc2
+package org.apache.spark.sql.execution.datasources.jdbc.v2
 
+import org.apache.seatunnel.spark.jdbc.Utils
 import org.apache.spark.Partition
 import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
@@ -25,7 +26,6 @@ import org.apache.spark.sql.jdbc.JdbcDialects
 import org.apache.spark.sql.sources._
 import org.apache.spark.sql.types.{DataType, DateType, NumericType, StructType, TimestampType}
 import org.apache.spark.sql.{AnalysisException, DataFrame, Row, SQLContext, SaveMode, SparkSession}
-import org.apache.spark.util.Utils
 
 import java.sql.{Date, Timestamp}
 import scala.collection.mutable.ArrayBuffer
@@ -195,8 +195,8 @@ private[sql] object JDBCRelation extends Logging {
     def dateTimeToString(): String = {
       val timeZone = DateTimeUtils.getTimeZone(timeZoneId)
       val dateTimeStr = columnType match {
-        case DateType => DateTimeUtils.dateToString(value.toInt, timeZone)
-        case TimestampType => DateTimeUtils.timestampToString(value, timeZone)
+        case DateType => Utils.dateToString(value.toInt, timeZone)
+        case TimestampType => Utils.timestampToString(value, timeZone)
       }
       s"'$dateTimeStr'"
     }

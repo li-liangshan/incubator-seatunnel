@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-core-flink-sql</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
         </dependency>
         <!--flink-->
         <dependency>

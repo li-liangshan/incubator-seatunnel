@@ -40,7 +40,7 @@ class WebhookStream extends SparkStreamingSource[String] {
     val query = this.server
       .toDF
       .writeStream
-      .foreachBatch((batch, batchId) => {
+      .foreachBatch((batch: Dataset[Row], batchId: Long) => {
         handler(batch)
       })
       .start()

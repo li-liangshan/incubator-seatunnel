@@ -38,13 +38,113 @@
             <id>release</id>
         </profile>
         <profile>
+            <id>spark</id>
+            <properties>
+                <revision>2.1.3-spark2</revision>
+                <seatunnel.config.shade.version>2.1.3-spark2</seatunnel.config.shade.version>
+                <spark.version>2.4.7</spark.version>
+                <spark.binary.version>2.4</spark.binary.version>
+                <hadoop.binary.version>2.7</hadoop.binary.version>
+                <hadoop.version>2.7.5</hadoop.version>
+                <spark-redis.version>2.6.0</spark-redis.version>
+                <clickhouse-jdbc.version>0.2</clickhouse-jdbc.version>
+                <mongo-spark.version>2.2.0</mongo-spark.version>
+                <spark-redis.version>2.6.0</spark-redis.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bin</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-spark2-bin.xml</descriptor>
+                                    </descriptors>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>src</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-src.xml</descriptor>
+                                    </descriptors>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                </plugins>
+                <finalName>apache-seatunnel-incubating-${revision}</finalName>
+            </build>
+        </profile>
+        <profile>
             <id>spark32</id>
             <properties>
+                <seatunnel.config.shade.version>2.1.3-spark3</seatunnel.config.shade.version>
                 <scala.version>2.12.15</scala.version>
                 <scala.binary.version>2.12</scala.binary.version>
                 <spark.version>3.2.0</spark.version>
                 <spark.binary.version>3.2</spark.binary.version>
+                <hadoop.binary.version>3.2</hadoop.binary.version>
+                <hadoop.version>3.2.1</hadoop.version>
+                <clickhouse-jdbc.version>0.2.4</clickhouse-jdbc.version>
+                <spark-redis.version>3.1.0</spark-redis.version>
+                <mongo-spark.version>3.0.1</mongo-spark.version>
+                <spark-redis.version>3.1.0</spark-redis.version>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bin</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-bin.xml</descriptor>
+                                    </descriptors>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>src</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-src.xml</descriptor>
+                                    </descriptors>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                </plugins>
+                <finalName>apache-seatunnel-incubating-${revision}</finalName>
+            </build>
         </profile>
         <profile>
             <id>spark31</id>
@@ -53,48 +153,53 @@
                 <scala.binary.version>2.12</scala.binary.version>
                 <spark.version>3.1.2</spark.version>
                 <spark.binary.version>3.1</spark.binary.version>
+                <hadoop.binary.version>3.2</hadoop.binary.version>
+                <hadoop.version>3.2.1</hadoop.version>
+                <clickhouse-jdbc.version>0.2.4</clickhouse-jdbc.version>
+                <spark-redis.version>3.1.0</spark-redis.version>
+                <mongo-spark.version>3.0.1</mongo-spark.version>
+                <spark-redis.version>3.1.0</spark-redis.version>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>bin</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-bin.xml</descriptor>
+                                    </descriptors>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>src</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-src.xml</descriptor>
+                                    </descriptors>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                </plugins>
+                <finalName>apache-seatunnel-incubating-${revision}</finalName>
+            </build>
         </profile>
     </profiles>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>bin</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/assembly-bin.xml</descriptor>
-                            </descriptors>
-                            <appendAssemblyId>true</appendAssemblyId>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>src</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/main/assembly/assembly-src.xml</descriptor>
-                            </descriptors>
-                            <appendAssemblyId>true</appendAssemblyId>
-                        </configuration>
-                    </execution>
-
-                </executions>
-            </plugin>
-        </plugins>
-        <finalName>apache-seatunnel-incubating-${revision}</finalName>
-    </build>
 
 </project>

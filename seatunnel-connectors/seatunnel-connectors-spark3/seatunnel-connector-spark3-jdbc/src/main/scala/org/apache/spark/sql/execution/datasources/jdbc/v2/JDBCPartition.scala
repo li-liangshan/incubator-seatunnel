@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.spark.sql.execution.datasources.jdbc2
+package org.apache.spark.sql.execution.datasources.jdbc.v2
 
 import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
@@ -168,7 +168,7 @@ object JDBCRDD extends Logging {
  * driver code and the workers must be able to access the database; the driver
  * needs to fetch the schema while the workers need to fetch the data.
  */
-private[jdbc2] class JDBCRDD(
+private[jdbc] class JDBCRDD(
                               sc: SparkContext,
                               getConnection: () => Connection,
                               schema: StructType,
